@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galaxy Pattern</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="600" height="800"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // 은하수 모양 그리기
+    const galaxyGradient = ctx.createRadialGradient(300, 400, 0, 300, 400, 500);
+    galaxyGradient.addColorStop(0, '#6a3093');
+    galaxyGradient.addColorStop(0.2, '#a044ff');
+    galaxyGradient.addColorStop(0.4, '#3bace2');
+    galaxyGradient.addColorStop(0.6, '#1e90ff');
+    galaxyGradient.addColorStop(0.8, '#22a6b3');
+    galaxyGradient.addColorStop(1, '#30c88f');
+
+    ctx.beginPath();
+    ctx.moveTo(300, 0);
+    ctx.lineTo(582, 350);
+    ctx.lineTo(390, 570);
+    ctx.lineTo(210, 910);
+    ctx.lineTo(0, 490);
+    ctx.lineTo(18, 350);
+    ctx.lineTo(300, 0);
+    ctx.closePath();
+    ctx.fillStyle = galaxyGradient;
+    ctx.fill();
+
+    // 별 그리기
+    const numStars = 4000;
+    for (let i = 0; i < numStars; i++) {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height;
+      const radius = Math.random() * 2;
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, 2 * Math.PI);
+      ctx.fillStyle = 'white';
+      ctx.fill();
+    }
+
+    // 별 그리기 함수
+    function drawStar(x, y) {
+      ctx.beginPath();
+      ctx.moveTo(x + 0, y - 30);
+      ctx.lineTo(x + 18, y - 30);
+      ctx.lineTo(x + 25, y - 50);
+      ctx.lineTo(x + 32, y - 30);
+      ctx.lineTo(x + 50, y - 30);
+      ctx.lineTo(x + 35, y - 18);
+      ctx.lineTo(x + 41, y);
+      ctx.lineTo(x + 25, y - 12);
+      ctx.lineTo(x + 9, y);
+      ctx.lineTo(x + 15, y - 18);
+      ctx.closePath();
+
+      // 랜덤 색상 생성
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+      ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    // 20개의 별 그리기
+    for (let i = 0; i < 20; i++) {
+      const x = Math.random() * (canvas.width - 100) + 50; // 캔버스 가장자리에서 50px 여백
+      const y = Math.random() * (canvas.height - 100) + 50;
+      drawStar(x, y);
+    }
+  </script>
+</body>
+</html>
